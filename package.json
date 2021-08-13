@@ -1,0 +1,16 @@
+{
+  "name": "minesweeper",
+  "version": "1.0.0",
+  "description": "Simple minesweeper app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "FinOCE",
+  "license": "ISC",
+  "devDependencies": {
+    "@types/node": "^16.6.1",
+    "ts-node-dev": "^1.1.8",
+    "typescript": "^4.3.5"
+  }
+}
