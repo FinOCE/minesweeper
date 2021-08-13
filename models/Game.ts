@@ -9,6 +9,9 @@ export default class Game {
     public height: number
     public mines: number
 
+    /**
+     * Create a Minesweeper game.
+     */
     constructor() {
         this.state = []
 
@@ -17,6 +20,9 @@ export default class Game {
         this.mines = 0
     }
 
+    /**
+     * Display board state in the console.
+     */
     public print(): void {
         let displayString = ''
 
@@ -37,6 +43,9 @@ export default class Game {
         console.log(displayString)
     }
 
+    /**
+     * Set the difficulty of the game.
+     */
     public setDifficulty(difficulty: Difficulty, width?: number, height?: number, mines?: number): void {
         const parameters = {
             'BEGINNER':     {width:  9, height:  9, mines: 10},
@@ -59,6 +68,9 @@ export default class Game {
         this.difficulty = difficulty
     }
 
+    /**
+     * Generate the board.
+     */
     public create(): void {
         if (!this.difficulty) throw 'No difficulty was set'
 
@@ -78,6 +90,9 @@ export default class Game {
         }
     }
 
+    /**
+     * Check how many mines are touching a given tile index.
+     */
     private minesNearIndex(index: number): Tile {
         if (this.state[index] === 'B') return 'B'
 
@@ -101,6 +116,9 @@ export default class Game {
         return minesNearby
     }
 
+    /**
+     * Check if an index goes over a new line.
+     */
     private isTooFarAway(index: number, position: number): boolean {
         return ([
             index % this.width - 1,
