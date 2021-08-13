@@ -1,4 +1,4 @@
-export type Tile = number | 'BOMB'
+export type Tile = number | 'B'
 export type Difficulty = 'BEGINNER' | 'INTERMEDIATE' | 'EXPERT' | 'CUSTOM'
 
 export default class Game {
@@ -15,6 +15,26 @@ export default class Game {
         this.width = 0
         this.height = 0
         this.mines = 0
+    }
+
+    public print(): void {
+        let displayString = ''
+
+        for (let y = 0; y < this.height; y++) {
+            for (let x = 0; x < this.width; x++) {
+                let tile = this.state[y*this.width + x]
+
+                displayString += tile === 'B'
+                    ? 'X '
+                    : tile === 0
+                        ? '  '
+                        : `${tile} `
+            }
+            
+            displayString += '\n'
+        }
+
+        console.log(displayString)
     }
 
     public setDifficulty(difficulty: Difficulty, width?: number, height?: number, mines?: number): void {
@@ -48,7 +68,7 @@ export default class Game {
         while (bombIndex.size < this.mines) {
             let i = Math.round(Math.random()*this.width*this.height)
             bombIndex.add(i)
-            state[i] = 'BOMB'
+            state[i] = 'B'
         }
 
         this.state = state
@@ -59,7 +79,7 @@ export default class Game {
     }
 
     private minesNearIndex(index: number): Tile {
-        if (this.state[index] === 'BOMB') return 'BOMB'
+        if (this.state[index] === 'B') return 'B'
 
         let relativePosition = [
             -this.width - 1,    // top left
@@ -75,7 +95,7 @@ export default class Game {
         let minesNearby = 0
 
         for (let position of relativePosition) {
-            if (this.state[index + position] === 'BOMB') minesNearby++
+            if (this.state[index + position] === 'B') minesNearby++
         }
 
         return minesNearby
