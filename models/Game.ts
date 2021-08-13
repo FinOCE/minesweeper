@@ -30,7 +30,7 @@ export default class Game {
                         ? '  '
                         : `${tile} `
             }
-            
+
             displayString += '\n'
         }
 
@@ -95,9 +95,17 @@ export default class Game {
         let minesNearby = 0
 
         for (let position of relativePosition) {
-            if (this.state[index + position] === 'B') minesNearby++
+            if (this.state[index + position] === 'B' && !this.isTooFarAway(index, position)) minesNearby++
         }
 
         return minesNearby
+    }
+
+    private isTooFarAway(index: number, position: number): boolean {
+        return ([
+            index % this.width - 1,
+            index % this.width,
+            index % this.width + 1
+        ].indexOf((index + position) % this.width)) === -1
     }
 }
