@@ -19,8 +19,17 @@ export default function index() {
                             index={i}
                             key={i}
                             onClick={(e: MouseEvent, i: number) => {
-                                e.currentTarget.classList.add(tileStyle.checked)
-                                console.log(game.clearNearbyEmpties(i))
+                                if (!game.flags[i]) {
+                                    e.currentTarget.classList.add(tileStyle.checked)
+                                    console.log(game.clearNearbyEmpties(i))
+                                }
+                            }}
+                            onContextMenu={(e: MouseEvent, i: number) => {
+                                e.preventDefault()
+                                if (!game.visited[i]) {
+                                    e.currentTarget.classList.toggle(tileStyle.flagged)
+                                    game.flag(i)
+                                }
                             }}
                          />
                     )

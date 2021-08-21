@@ -6,13 +6,15 @@ export interface TileProps {
     value: TileValue,
     index: number,
     onClick: (e: MouseEvent, i: number) => void,
+    onContextMenu: (e: MouseEvent, i: number) => void
 }
 
-export default function Tile({value, index, onClick}: TileProps) {
+export default function Tile({value, index, onClick, onContextMenu}: TileProps) {
     return (
         <div
             className={styles.tile}
             onClick={e => onClick(e, index)}
+            onContextMenu={e => onContextMenu(e, index)}
             suppressHydrationWarning
         >
             {value === 'B' ? 'X' : value === 0 ? '' : value}

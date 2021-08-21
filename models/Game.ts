@@ -4,6 +4,7 @@ export type Difficulty = 'BEGINNER' | 'INTERMEDIATE' | 'EXPERT' | 'CUSTOM'
 export default class Game {
     public state: Tile[]
     public visited: boolean[]
+    public flags: boolean[]
     public difficulty?: Difficulty
 
     public width: number
@@ -16,6 +17,7 @@ export default class Game {
     constructor() {
         this.state = []
         this.visited = []
+        this.flags = []
 
         this.width = 0
         this.height = 0
@@ -87,6 +89,7 @@ export default class Game {
 
         this.state = state
         this.visited = new Array(this.width*this.height)
+        this.flags = new Array(this.width*this.height)
 
         for (let i = 0; i < this.state.length; i++) {
             this.state[i] = this.minesNearIndex(i)
@@ -159,5 +162,9 @@ export default class Game {
         }
 
         return this.visited
+    }
+
+    public flag(index: number) {
+        this.flags[index] = this.flags[index] ? false : true
     }
 }
