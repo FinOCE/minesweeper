@@ -10,11 +10,13 @@ export default function Tile({value, index}: TileProps) {
     let v = value === 'B'
         ? 'X'
         : value === 0
-            ? '.' // alignment issues with no character atm
+            ? '' // alignment issues with no character atm
             : value
     
     return (
-        <div className={styles.tile} data-index={index}>
+        <div className={styles.tile} data-index={index} onClick={e => {
+            e.currentTarget.classList.add(styles.checked)
+        }}>
             {v}
         </div>
     )

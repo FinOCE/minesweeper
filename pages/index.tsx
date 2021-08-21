@@ -9,14 +9,11 @@ export default function index() {
 
     return (
         <div id={styles.page}>
-            <div id={styles.game}>
+            <div id={styles.game} style={{gridTemplateColumns: `repeat(${game.width}, auto)`}}>
                 {game.state.map((tile, i) => {
 
                     return (
-                        <>
-                            {i % game.width === 0 && i !== 0 ? <br /> : ''}
-                            <Tile value={tile} index={i} />
-                        </>
+                        <Tile value={tile} index={i} />
                     )
                 })}
             </div>
