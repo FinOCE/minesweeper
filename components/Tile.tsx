@@ -10,7 +10,11 @@ export interface TileProps {
 
 export default function Tile({value, index, onClick}: TileProps) {
     return (
-        <div className={styles.tile} onClick={e => onClick(e, index)}>
+        <div
+            className={styles.tile}
+            onClick={e => onClick(e, index)}
+            suppressHydrationWarning
+        >
             {value === 'B' ? 'X' : value === 0 ? '' : value}
         </div>
     )
