@@ -3,6 +3,7 @@ export type Difficulty = 'BEGINNER' | 'INTERMEDIATE' | 'EXPERT' | 'CUSTOM'
 
 export default class Game {
     public state: Tile[]
+    public visited: boolean[]
     public difficulty?: Difficulty
 
     public width: number
@@ -14,6 +15,7 @@ export default class Game {
      */
     constructor() {
         this.state = []
+        this.visited = []
 
         this.width = 0
         this.height = 0
@@ -84,6 +86,7 @@ export default class Game {
         }
 
         this.state = state
+        this.visited = new Array(this.width*this.height)
 
         for (let i = 0; i < this.state.length; i++) {
             this.state[i] = this.minesNearIndex(i)
@@ -125,5 +128,36 @@ export default class Game {
             index % this.width,
             index % this.width + 1
         ].indexOf((index + position) % this.width)) === -1
+    }
+
+    /**
+     * 
+     */
+    public clearNearbyEmpties(index: number) {
+        let relativePosition = [
+            -this.width,        // top
+            -1,                 // left
+            1,                  // right
+            this.width,         // bottom
+        ]
+
+        let queue: number[] = []
+        queue.push(index)
+
+        let i = 0
+        while (queue.length > 0) {
+            i++
+            if (i > 81) break
+            let head = queue[0]
+            this.visited[head] = true
+            queue.shift()
+            for (let p of relativePosition) {
+                if (!this.visited[p + head] && this.state[p + head] === 0 && !this.isTooFarAway(head, p)) {
+                    queue.push(p + head)
+                }
+            }
+        }
+
+        return this.visited
     }
 }
